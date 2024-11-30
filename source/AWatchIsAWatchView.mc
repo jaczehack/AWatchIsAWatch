@@ -24,23 +24,23 @@ class AWatchIsAWatchView extends WatchUi.WatchFace {
 
     // Update the view
     function onUpdate(dc) {
-		var date = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
-		var systemStats = System.getSystemStats();
-        View.findDrawableById("Date").setText(
-        	date.year.format("%4d") + "-" + date.month.format("%02d") + "-" + date.day.format("%02d")
-    	);
-        View.findDrawableById("HoursAndMinutes").setText(
-        	date.hour.format("%02d") + ":" + date.min.format("%02d")
-    	);
-    	View.findDrawableById("Seconds").setText(
-			isAwake ? ":" + date.sec.format("%02d") : ""
-		);
-		View.findDrawableById("DayOfTheWeek").setText(
-   			["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][date.day_of_week - 1]
-    	);
-        View.findDrawableById("Battery").setText(
-        	systemStats.battery.format("%d") + "%"
-    	);
+        var date = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
+        var systemStats = System.getSystemStats();
+        (View.findDrawableById("Date") as Toybox.WatchUi.Text).setText(
+            date.year.format("%4d") + "-" + date.month.format("%02d") + "-" + date.day.format("%02d")
+        );
+        (View.findDrawableById("HoursAndMinutes") as Toybox.WatchUi.Text).setText(
+            date.hour.format("%02d") + ":" + date.min.format("%02d")
+        );
+        (View.findDrawableById("Seconds") as Toybox.WatchUi.Text).setText(
+            isAwake ? ":" + date.sec.format("%02d") : ""
+        );
+        (View.findDrawableById("DayOfTheWeek") as Toybox.WatchUi.Text).setText(
+            ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][date.day_of_week - 1]
+        );
+        (View.findDrawableById("Battery") as Toybox.WatchUi.Text).setText(
+            systemStats.battery.format("%d") + "%"
+        );
 
         // Call the parent onUpdate function to redraw the layout
         View.onUpdate(dc);
@@ -54,12 +54,12 @@ class AWatchIsAWatchView extends WatchUi.WatchFace {
 
     // The user has just looked at their watch. Timers and animations may be started here.
     function onExitSleep() {
-    	isAwake = true;
+        isAwake = true;
     }
 
     // Terminate any active timers and prepare for slow updates.
     function onEnterSleep() {
-    	isAwake = false;
+        isAwake = false;
     }
 
 }
